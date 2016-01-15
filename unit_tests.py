@@ -16,20 +16,22 @@ class SpellcheckerTests(unittest.TestCase):
 
   def test_check(self):
     # Test only English words.
-    self.assertEqual(1, len(self.spellchecker.check("the Ball is bigg")))
-    self.assertEqual(2, len(self.spellchecker.check("hola, donde the... big "
-                                                    "ball")))
-    self.assertEqual(0, len(self.spellchecker.check("big ball")))
-    self.assertEqual(0, len(self.spellchecker.check("")))
+    self.assertEqual(["bigg"],
+                     self.spellchecker.check("the Ball is bigg"))
+    self.assertEqual(["hola", "donde"],
+                     self.spellchecker.check("hola, donde the... big ball"))
+    self.assertEqual([], self.spellchecker.check("big ball"))
+    self.assertEqual([], self.spellchecker.check(""))
+
     # Punctuation should have no effect on misspellings.
-    self.assertEqual(0, len(self.spellchecker.check("..,,,;;?,")))
+    self.assertEqual([], self.spellchecker.check("..,,,;;?,"))
 
     # Test some Spanish and English together.
     self.spellchecker.add_language("spanish", load_dictionary("spanish"))
-    self.assertEqual(1, len(self.spellchecker.check("the Ball is bigg")))
-    self.assertEqual(0, len(self.spellchecker.check("hola, donde the... big "
-                                                    "ball")))
-    self.assertEqual(2, len(self.spellchecker.check("holla my boyo")))
+    self.assertEqual(["bigg"], self.spellchecker.check("the Ball is bigg"))
+    self.assertEqual([], self.spellchecker.check("hola, donde the... big ball"))
+    self.assertEqual(["holla", "boyo"],
+                     self.spellchecker.check("holla my boyo"))
 
   def test_add_language(self):
     span_dict = load_dictionary("spanish")
