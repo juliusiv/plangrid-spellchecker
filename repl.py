@@ -55,8 +55,7 @@ def handle_input(spellchecker, repl_input):
       output = "Misspellings:\n"
       for m in misspellings:
         suggestions = spellchecker.suggest(m, 3)
-        output = "".join([output, "  {}: {}".format(m, ", ".join(suggestions))])
-      output += '\n'
+        output = "".join([output, "  {}: {}\n".format(m, ", ".join(suggestions))])
   return output
 
 
