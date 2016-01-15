@@ -40,6 +40,27 @@ class SpellcheckerTests(unittest.TestCase):
     eng_dict = load_dictionary("english")
     self.assertFalse(self.spellchecker.add_language("english", eng_dict))
 
+  def test_suggest(self):
+    self.assertEqual(self._get_distances("bigg")[:3],
+                     self.spellchecker.suggest("bigg", 3))
+    self.assertEqual(self._get_distances("hola")[:3],
+                     self.spellchecker.suggest("hola", 3))
+    self.assertEqual(self._get_distances("boyo")[:3],
+                     self.spellchecker.suggest("boyo", 3))
+    self.assertEqual(self._get_distances("")[:3],
+                     self.spellchecker.suggest("", 3))
+
+  # Find the Levenshtein distance between |word| and every word in the current
+  # spellchecking languages and return a sorted list of distance-word tuples.
+  def _get_distances(self, word):
+    distances = set([])
+    languages = self.spellchecker.get_languages()
+    for lang in languages:
+      for w in languages[lang]:
+        dist = lev_dist(word, w)
+        distances.add((dist, w))
+    return [d[1] for d in sorted(distances)]
+
   def setUp(self):
     dictionaries = {"english": load_dictionary("english")}
     self.spellchecker = Spellchecker(dictionaries)

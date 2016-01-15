@@ -4,6 +4,9 @@ class Spellchecker:
   def __init__(self, langs={}):
     self.languages = langs
 
+  def get_languages(self):
+    return self.languages
+
   # Spellchecks a sequence of text |text| using all languages in the current
   # spellchecking dictionaries.
   def check(self, text):
@@ -52,7 +55,7 @@ class Spellchecker:
         suggestions.sort()
         if len(suggestions) > limit:
           suggestions.pop()
-    return (s[1] for s in sorted(suggestions))
+    return [s[1] for s in sorted(suggestions)]
 
 
 # Finds the edit distance between two words.
