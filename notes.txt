@@ -1,0 +1,23 @@
+spellchecker 
+data structure for storing languages -- change to Vector
+algorithm rewrite -- spellcheck over multiple languages in the same snippet 
+XXXIterator tokenize into "words" (diff langs determine word breaks differently)
+pass word into spellchecker
+another Iterator determines if misspelled | correct | any character is not part of the charset for the language
+Unicode 
+
+two nano-dictionaries -- a couple words in them 
+English and Spanish
+spellcheck function
+
+Extensions:
+move to a real dev environment, put up in github
+add suggestions feature: "mooon" --> "did you mean moon"
+command line interface that allows me to specify the text live interactively, in a REPL loop 
+but make the code amenable to easily putting an API server in front of it ,
+real unit tests
+
+tim-pg <<< tim's github
+tim@plangrid.com
+
+===
